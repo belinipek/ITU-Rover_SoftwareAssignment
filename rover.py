@@ -1,5 +1,4 @@
 from os import getloadavg
-#from traceback import print_tb
 import rospy
 from std_msgs.msg import String
 import re
@@ -14,36 +13,34 @@ def arm_data(arm):
     global arm_data
     arm_data = str(arm.data)
     
-
+# 4 karakter bir veri grubu olacak sekilde ayiracak bir fonksiyon tanimliyoruz.
 def split_each(data,n):
     
     return [data[i:i+n] for i in range(0, len(data), n)]
-
+# Enkoder verisi A ile baslayip B ile bitenler oldugundan dolayi yalnizca bu verileri secip ayiracak olan fonksiyona yollayacagiz.
 def check_data(data,n):
     if data[0]=="A" and data[-1]=="B":
+         # A ve B harflerini veriden cikariyoruz.
         return split_each((data[1:-1]),n)
     
 
 def check_value(value_list):
     
     for i in range(len(value_list)):
-        
-        
-        
-
+         # Bu asamada mutlak degeri 255'ten buyuk olanlari degerlendirmeye aliyoruz.
+       
         if int(value_list[i][1:4])>255:
             
-
+            # 255 sinir degerine esitliyoruz.
             if int(value_list[i][0])==0:
                 value_list[i]="0255"
 
             if int(value_list[i][0])==1:
                 value_list[i]="1255"
-
-        
+                
     return value_list
 
-    
+# Uygun aralikta olanlar icin yalnizca isaret tahlili yapiyoruz.    
 def str_data(liste):
     str_send = ""
 
@@ -56,8 +53,6 @@ def str_data(liste):
             str_send=str_send+"-"+str(int(liste[i][1:4]))+" "
             
     return str_send
-
-
 
 
 if __name__== "__main__":
