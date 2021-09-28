@@ -20,7 +20,6 @@ def split_each(data,n):
 # Enkoder verisi A ile baslayip B ile bitenler oldugundan dolayi yalnizca bu verileri secip ayiracak olan fonksiyona yollayacagiz.
 def check_data(data,n):
     if data[0]=="A" and data[-1]=="B":
-         # A ve B harflerini veriden cikariyoruz.
         return split_each((data[1:-1]),n)
     
 
